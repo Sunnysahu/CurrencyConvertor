@@ -8,7 +8,7 @@ function App() {
   const [to, setTo] = useState("inr");
   const [convertedAmount, setConvertedAmount] = useState(0);
 
-  const currencyInfo = useCurrencyInfo(from);
+  const currencyInfo = useCurrencyInfo(from, to, amount, convertedAmount);
 
   const options = Object.keys(currencyInfo);
 
@@ -44,8 +44,8 @@ function App() {
                 amount={amount}
                 currencyOptions={options}
                 onCurrencyChange={(currency) => {
-                  // setAmount(amount);
                   setFrom(currency);
+                  console.log(currency);
                 }}
                 selectCurrency={from}
                 onAmountChange={(amount) => setAmount(amount)}
@@ -65,8 +65,12 @@ function App() {
                 label="To"
                 amount={convertedAmount}
                 currencyOptions={options}
-                onCurrencyChange={(currency) => setTo(currency)}
-                selectCurrency={from}
+                onCurrencyChange={(currency) => {
+                  setTo(currency);
+                  // setFrom(currency);
+                  console.log(currency);
+                }}
+                selectCurrency={to}
                 amountDisable
               />
             </div>
@@ -77,9 +81,11 @@ function App() {
               amount={convertedAmount}
               currencyOptions={options}
               onCurrencyChange={(currency) => {
-                setTo(currency);
+                // setTo(currency);
+                setFrom(currency);
+                console.log("Next");
               }}
-              selectCurrency={from}
+              selectCurrency={to}
               amountDisable
             >
               Convert {from.toUpperCase()} to {to.toUpperCase()}
